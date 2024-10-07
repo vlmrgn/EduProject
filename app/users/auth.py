@@ -23,11 +23,11 @@ def create_access_token(data: dict) -> str:
     expire = datetime.now(timezone.utc) + timedelta(minutes=15)  # Срок действия токена
     to_encode.update({"exp": expire})  # Обновление словаря
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, settings.ALGORITHM)  # Генерация токена
-    return encoded_jwt
+    return encoded_jwt  # Возврат токена
 
 
 async def authenticate_user(email: EmailStr, password: str):
     user = await UsersDAO.find_one_or_none(email=email)  # Проверка наличия пользователя с таким email
     if not user and not verify_password(password, user.hashed_password):  # Проверка пароля
         return None
-    return user
+    return user  # Возврат пользователя

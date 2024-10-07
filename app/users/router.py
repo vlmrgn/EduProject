@@ -24,6 +24,6 @@ async def login_user(response: Response,user_data: SUserAuth):
     user = await authenticate_user(user_data.email, user_data.password) # Аутентификация пользователя
     if not user:
         raise HTTPException(status_code=401)
-    access_token = create_access_token({'sub': user.id}) # Генерация токена
+    access_token = create_access_token({'sub': str(user.id)}) # Генерация токена
     response.set_cookie('booking_access_token', access_token, httponly=True) # Запись токена в куки
     return {'access_token': access_token}
