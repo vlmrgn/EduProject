@@ -6,7 +6,7 @@ from sqlalchemy.dialects.mysql import insert
 from app.bookings.models import Booking
 from app.dao.base import BaseDao
 from app.database import async_session_maker
-from app.rooms.models import Rooms
+from app.hotels.rooms.models import Rooms
 
 
 class BookingDAO(BaseDao):
