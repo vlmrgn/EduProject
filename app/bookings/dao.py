@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy import and_, or_, func, select
+from sqlalchemy import and_, or_, func, select, delete
 from sqlalchemy.dialects.mysql import insert
 
 from app.bookings.models import Booking
@@ -66,3 +66,9 @@ class BookingDAO(BaseDao):
                 return new_booking.scalar()
             else:
                 return None
+
+    @classmethod
+    async def delete(cls, model_id: int, user_id: int):
+        async with async_session_maker() as session:
+            await session.execute(delete(Booking).where(Booking.id == model_id, Booking.user_id == user_id))
+            await session.commit()
